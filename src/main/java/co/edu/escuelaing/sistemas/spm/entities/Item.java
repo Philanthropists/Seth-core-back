@@ -1,21 +1,25 @@
 package co.edu.escuelaing.sistemas.spm.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Item {
 
-	private final String name;
+  @NotNull @NotBlank private String name;
 
-	private final Boolean resolved;
+  @NotNull @NotBlank private String description;
 
-	public Item(String name, Boolean resolved) {
-		this.name = name;
-		this.resolved = resolved;
-	}
+  @NotNull private Boolean resolved;
 
-	public String getName() {
-		return name;
-	}
-
-	public Boolean getResolved() {
-		return resolved;
-	}
+  @Builder.Default private Set<String> tags = new HashSet<>();
 }
