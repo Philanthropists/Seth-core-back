@@ -1,33 +1,35 @@
 package co.edu.escuelaing.sistemas.spm.controllers;
 
-import co.edu.escuelaing.sistemas.spm.entities.Item;
 import co.edu.escuelaing.sistemas.spm.entities.Post;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import co.edu.escuelaing.sistemas.spm.services.PostService;
+import java.util.List;
+import javax.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/post")
 public class PostController {
 
-    @PostMapping("/publish")
-    public ResponseEntity<?> addPost(@RequestBody Post post){
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
+  @Autowired private PostService postService;
 
-    @GetMapping("/posts")
-    public ResponseEntity<?> getPosts(){
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+  @GetMapping("/posts")
+  public List<Post> getPosts() {
+    return postService.retrieveAllPosts();
+  }
 
-    @PostMapping("/item")
-    public ResponseEntity<?> addItem(@RequestBody Item item){
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
+  @PostMapping("/publish")
+  public Post addPost(@RequestBody @Valid Post post) {
+    return postService.save(post);
+  }
 
-    @PostMapping("/removeitem")
-    public ResponseEntity<?> removeItem(@RequestBody Item item){
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
+  @PutMapping("/publish")
+  public Post updatePost(@RequestBody @Valid Post post) {
+    return postService.update(post);
+  }
 }

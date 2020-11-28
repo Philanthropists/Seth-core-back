@@ -1,14 +1,24 @@
 package co.edu.escuelaing.sistemas.spm.entities;
 
+import java.time.LocalDateTime;
+import javax.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Document(collection = "seth_core_tag")
 public class Tag {
 
-	private final String name;
+  @Id private String name;
 
-	public Tag(String name) {
-		this.name = name;
-	}
+  @NotNull private LocalDateTime updatedDate;
 
-	public String getName() {
-		return name;
-	}
+  @NotNull private Boolean available;
 }
